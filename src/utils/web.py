@@ -125,6 +125,9 @@ def getUrlFd(url, headers=None, data=None):
         httpProxy = force(proxy)
         if httpProxy:
             request.set_proxy(httpProxy, 'http')
+            # if the scheme is https also set urllib2's https proxy
+            if scheme == 'https': 
+                request.set_proxy(httpProxy,'https')
         fd = urllib2.urlopen(request)
         return fd
     except socket.timeout, e:
